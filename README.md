@@ -9,7 +9,7 @@
 
 ## Instalasi
 1. Clone repositori ini: `git clone https://github.com/Inready-Workgroup-Devs/laracamp-meowcafe.git`
-2. Masuk ke direktori proyek: `cd laracamp-meoecafe`
+2. Masuk ke direktori proyek: `cd laracamp-meowcafe`
 3. Buka proyek dengan Visual Studio Code (atau editor pilihan Anda): `code .`
 4. Install dependencies: `composer install`
 5. Salin file `.env.example` menjadi `.env` dan sesuaikan konfigurasi database
