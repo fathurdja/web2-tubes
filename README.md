@@ -8,7 +8,7 @@
 </p>
 
 ## Instalasi
-1. Clone repositori ini: `git clone https://github.com/Inready-Workgroup-Devs/laracamp-meowcaf.git`
+1. Clone repositori ini: `git clone https://github.com/Inready-Workgroup-Devs/laracamp-meowcafe.git`
 2. Masuk ke direktori proyek: `cd repo`
 3. Install dependencies: `composer install`
 4. Salin file `.env.example` menjadi `.env` dan sesuaikan konfigurasi database
