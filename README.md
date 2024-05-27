@@ -11,8 +11,12 @@
 1. Clone repositori ini: `git clone https://github.com/Inready-Workgroup-Devs/laracamp-meowcafe.git`
 2. Masuk ke direktori proyek: `cd laracamp-meowcafe`
 3. Buka proyek dengan Visual Studio Code (atau editor pilihan Anda): `code .`
-4. Install dependencies: `composer install`
-5. Salin file `.env.example` menjadi `.env` dan sesuaikan konfigurasi database
-6. Generate key aplikasi: `php artisan key:generate`
-7. Migrasi database: `php artisan migrate`
-8. Jalankan server lokal: `php artisan serve`
+4. Install dependencies:
+   - `composer install`
+   - `npm install`
+6. Salin file `.env.example` menjadi `.env` dan sesuaikan konfigurasi database
+7. Generate key aplikasi: `php artisan key:generate`
+8. Migrasi database: `php artisan migrate`
+9. Jalankan server lokal:
+   - `npm run dev`
+   - `php artisan serve`
