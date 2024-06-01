@@ -1,23 +1,15 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
-Route::get('/', function () {
-    return view('admin.dashboard');
-});
+// eksplisit
+Route::get('/', [DashboardController::class, '__invoke'])->name('dashboard');
+// implist
+// Route::get('/', DashboardController::class);
 
-Route::get('/products', function(){
-    return view('admin.products.index');
-});
-
-Route::get('/products/create', function () {
-    return view('admin.products.create');
-});
-
-Route::get('/products/edit', function () {
-    return view('admin.products.edit');
-});
-
-Route::get('/orders', function () {
-    return view('admin.orders.index');
-});
+Route::resource('products', ProductController::class);
+Route::get('/orders', [OrderController::class, 'index']);
