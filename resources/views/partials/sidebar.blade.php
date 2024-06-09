@@ -1,20 +1,20 @@
 <aside class="py-6 w-[240px] bg-white h-screen fixed">
-    <div class="flex h-full items-center justify-between flex-col w-full">
+    <div class="flex flex-col items-center justify-between w-full h-full">
         <div class="w-full text-center">
-            <p class="font-extrabold text-lg">
+            <p class="text-lg font-extrabold">
                 <span class="text-primary">Meow</span>Cafe
             </p>
-            <section class="mt-8 flex flex-col">
+            <section class="flex flex-col mt-8">
                 <div class="relative px-6">
                     <a
-                        href="/"
-                        class="p-3 group {{ request()->is('/') ? 'bg-primary text-white' : '' }} items-center flex w-full rounded-md"
-                        data-page="{{ request()->is('/') ? 'active' : '' }}"
+                        href="{{ route('dashboard') }}"
+                        class="p-3 group {{ request()->is('dashboard') ? 'bg-primary text-white' : '' }} items-center flex w-full rounded-md"
+                        data-page="{{ request()->is('dashboard') ? 'active' : '' }}"
                     >
                         <div
-                            class="bg-primary absolute rounded-e-lg top-0 left-0 h-full w-1 hidden group-data-active:block"
+                            class="absolute top-0 left-0 hidden w-1 h-full bg-primary rounded-e-lg group-data-active:block"
                         ></div>
-                        <i class="ri-dashboard-line mr-4 text-lg"></i>
+                        <i class="mr-4 text-lg ri-dashboard-line"></i>
                         <span class="font-semibold">Dashboard</span>
                     </a>
                 </div>
@@ -25,9 +25,9 @@
                         data-page="{{ request()->is('products*') ? 'active' : '' }}"
                     >
                         <div
-                            class="bg-primary absolute rounded-e-lg top-0 left-0 h-full w-1 hidden group-data-active:block"
+                            class="absolute top-0 left-0 hidden w-1 h-full bg-primary rounded-e-lg group-data-active:block"
                         ></div>
-                        <i class="ri-microsoft-line mr-4 text-lg"></i>
+                        <i class="mr-4 text-lg ri-microsoft-line"></i>
                         <span class="font-semibold">Products</span>
                     </a>
                 </div>
@@ -47,9 +47,9 @@
                         data-page="{{ request()->is('orders') ? 'active' : '' }}"
                     >
                         <div
-                            class="bg-primary absolute rounded-e-lg top-0 left-0 h-full w-1 hidden group-data-active:block"
+                            class="absolute top-0 left-0 hidden w-1 h-full bg-primary rounded-e-lg group-data-active:block"
                         ></div>
-                        <i class="ri-clipboard-line mr-4 text-lg"></i>
+                        <i class="mr-4 text-lg ri-clipboard-line"></i>
                         <span class="font-semibold">Orders</span>
                     </a>
                 </div>
@@ -64,23 +64,30 @@
                 <div class="relative px-6">
                     <a
                         href="./orders.html"
-                        class="p-3 group data-active:bg-primary items-center flex w-full rounded-md data-active:text-white"
+                        class="flex items-center w-full p-3 rounded-md group data-active:bg-primary data-active:text-white"
                         data-page="active"
                     >
                         <div
-                            class="bg-primary absolute rounded-e-lg top-0 left-0 h-full w-1 hidden group-data-active:block"
+                            class="absolute top-0 left-0 hidden w-1 h-full bg-primary rounded-e-lg group-data-active:block"
                         ></div>
-                        <i class="ri-clipboard-line mr-4 text-lg"></i>
+                        <i class="mr-4 text-lg ri-clipboard-line"></i>
                         <span class="font-semibold">Orders</span>
                     </a>
                 </div>
             </section> --}}
         </div>
         <div class="w-full px-6">
-            <button class="p-3 flex w-full items-center rounded-md">
-                <i class="ri-logout-circle-line mr-4 text-lg"></i>
+            {{-- <button class="flex items-center w-full p-3 rounded-md">
+                <i class="mr-4 text-lg ri-logout-circle-line"></i>
                 <span class="font-semibold">Logout</span>
-            </button>
+            </button> --}}
+            <form method="POST" action="/logout">
+                @csrf
+                <button type="submit" class="flex items-center w-full p-3 rounded-md">
+                    <i class="mr-4 text-lg ri-logout-circle-line"></i>
+                    <span class="font-semibold">Logout</span>
+                </button>
+            </form>
         </div>
     </div>
 </aside>
