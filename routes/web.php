@@ -9,7 +9,7 @@ use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware(['auth', IsAdmin::class])->group(function () {
+Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, '__invoke'])->name('dashboard');
 Route::resource('products', ProductController::class);
 Route::get('/orders', [OrderController::class, 'index']);
@@ -20,4 +20,5 @@ Route::post('/login', [AuthController::class, 'login'])->middleware('guest');
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::get('/', [LandingController::class, 'food'])->name('food');
+// Route::get('/', [LandingController::class, 'food'])->name('home');
 Route::get('/drink', [LandingController::class, 'drink'])->name('drink');
