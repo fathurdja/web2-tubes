@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,7 +11,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.products.index');
+        $products = \App\Models\Product::all();
+
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -30,7 +31,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255|unique:products,name',
+            'category_id' => 'required|integer',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        // Upload gambar dan simpan path-nya
+        $imagePath = $request->file('image')->store('images/products', 'public');
+        $imageFileName = basename($imagePath);
+
+        \App\Models\Product::create([
+            'name' => $validatedData['name'],
+            'category_id' => $validatedData['category_id'],
+            'price' => $validatedData['price'],
+            'stock' => $validatedData['stock'],
+            'image' => $imageFileName,
+        ]);
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -46,7 +67,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**
@@ -54,7 +75,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
     }
 
     /**
@@ -62,6 +83,6 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        
     }
 }
