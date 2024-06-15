@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Alert;
 
 class ProductController extends Controller
 {
@@ -11,8 +12,16 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = \App\Models\Product::all();
+        // Menampilkan semua product dengan menggunakan pagination
+        $products = \App\Models\Product::
+            paginate(7)->withQueryString();
 
+        // Mengambil produk dengan join ke tabel kategori, mengurutkan berdasarkan kategori 'food' terlebih dahulu, dan mem-paginate hasil dengan 7 produk per halaman
+        // $products = \App\Models\Product::join('categories', 'products.category_id', '=', 'categories.id')
+        //     ->orderByRaw("CASE WHEN categories.name = 'food' THEN 0 ELSE 1 END")
+        //     ->select('products.*')
+        //     ->paginate(7)->withQueryString();
+        
         return view('admin.products.index', compact('products'));
     }
 
@@ -51,7 +60,11 @@ class ProductController extends Controller
             'image' => $imageFileName,
         ]);
 
+
+        Alert::success('Successful!', 'Product created successfully.');
         return redirect()->route('products.index');
+        // return redirect()->route('products.index')->with('alert-success', 'Product created successfully.');
+
     }
 
     /**
@@ -67,7 +80,10 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        
+        $categories = \App\Models\Category::all();
+
+        $product = \App\Models\Product::findOrFail($id);
+        return view('admin.products.edit', compact('categories', 'product'));
     }
 
     /**
@@ -75,7 +91,26 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+        $product = \App\Models\Product::findOrFail($id);
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255|unique:products,name,' . $id,
+            'category_id' => 'required|integer',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            \Illuminate\Support\Facades\Storage::delete('public/images/products/' . $product->image);
+            $imagePath = $request->file('image')->store('images/products', 'public');
+            $imageFileName = basename($imagePath);
+            $validatedData['image'] = $imageFileName;
+        }
+
+        $product->update($validatedData);
+
+        Alert::success('Successful!', 'Product updated successfully.');
+        return redirect()->route('products.index');
     }
 
     /**
@@ -83,6 +118,11 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        
+        $product = \App\Models\Product::findOrFail($id);
+        \Illuminate\Support\Facades\Storage::delete('public/images/products/' . $product->image);
+        $product->delete();
+
+        Alert::success('Successful!', 'Product has been deleted successfully.');
+        return redirect()->route('products.index');
     }
 }

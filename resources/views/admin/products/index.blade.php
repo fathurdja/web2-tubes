@@ -22,7 +22,6 @@
                     </tr>
                 </thead>
                 <tbody class="table-row-group font-semibold">
-                    
                     @foreach ($products as $product)
                     <tr class="border-b border-b-bordeborder-borderPrimary">
                         <td class="flex justify-center py-6">
@@ -53,6 +52,11 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
+
+            {{-- Menampilkan Previous/Next Pagination --}}
+            <div class=mt-5>
+                {{ $products->links() }}
             </div>
             </main>
 @endsection

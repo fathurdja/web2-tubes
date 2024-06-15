@@ -3,7 +3,10 @@
 @section('content')
     <main class="p-7 bg-backgroundPrimary min-h-screen w-full mt-[70px]">
         <div class="flex items-center justify-between">
-            <p class="text-3xl font-bold">Add Products</p>
+            <div class="flex items-center">
+                <a href="{{ route('products.index') }}" class="px-4 text-[30px]">←</a>
+                <p class="text-3xl font-bold">Add Products</p>
+            </div>
             <div class="flex gap-2">
                 <button type="submit" form="form"
                     class="inline-flex justify-center h-full py-3 text-base font-bold text-white rounded-md bg-primary w-36">
