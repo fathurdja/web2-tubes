@@ -15,8 +15,11 @@ return new class extends Migration
             $table->dropForeign(['user_id']);
             $table->dropColumn('user_id');
 
-            $table->string('transaction_id')->unique()->after('id');
+            $table->decimal('price', 8, 2);
         });
+        // Schema::table('orders', function (Blueprint $table) {
+        //     // Menambahkan kolom snap_token
+        // });
     }
 
     /**
@@ -26,9 +29,12 @@ return new class extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->foreignId('user_id')->after('id');
-            $table->foreign('user_id')->references('id')->on('users');;
+            $table->foreign('user_id')->references('id')->on('users');
 
-            $table->dropColumn('transaction_id');
+            $table->dropColumn('price');
         });
+        // Schema::table('orders', function (Blueprint $table) {
+        //    // Menghapus kolom snap_token saat rollback
+        // });
     }
 };

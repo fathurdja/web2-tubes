@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->enum('payment_status',['processing', 'completed'])->default('processing');
+            $table->enum('payment_status', ['processing', 'completed'])->default('processing');
+
             $table->timestamps();
         });
     }

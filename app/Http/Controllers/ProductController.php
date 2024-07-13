@@ -45,7 +45,7 @@ class ProductController extends Controller
             'category_id' => 'required|integer',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
-            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:20480',
         ]);
 
         // Upload gambar dan simpan path-nya
@@ -97,7 +97,7 @@ class ProductController extends Controller
             'category_id' => 'required|integer',
             'price' => 'required|numeric',
             'stock' => 'required|integer',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:20480',
         ]);
 
         if ($request->hasFile('image')) {
@@ -119,6 +119,7 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $product = \App\Models\Product::findOrFail($id);
+        \App\Models\Order::where('product_id', $id)->delete();
         \Illuminate\Support\Facades\Storage::delete('public/images/products/' . $product->image);
         $product->delete();
 

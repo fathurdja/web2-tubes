@@ -14,7 +14,9 @@ class Order extends Model
     protected $fillable = [
         'product_id',
         'transaction_id',
-        'payment_status'
+        'payment_status',
+        'price',
+       
     ];
 
     public function user(): BelongsTo
