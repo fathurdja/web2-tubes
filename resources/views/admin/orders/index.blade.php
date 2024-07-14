@@ -2,32 +2,32 @@
 
 @section('content')
     <main class="p-7 bg-backgroundPrimary min-h-screen w-full mt-[70px]">
-        <p class="text-3xl font-bold">Orders</p>
+        <p class="text-3xl font-bold">Orders Status And Reservation</p>
         <div class="bg-white border mt-7 border-borderPrimary rounded-xl">
             <table class="w-full">
                 <thead class="text-left">
                     <tr class="border-b border-borderPrimary">
                         <th class="py-4 pl-8">No</th>
-                        <th class="">Transaction ID</th>
-                        <th class="">Product</th>
-                        <th class="">Category</th>
-                        <th class="">Price</th>
+                        <th class="">Name</th>
+                        <th class="">Table</th>
+                        <th class="">Phone</th>
+                        <th class="">Date</th>
                         <th class="">Status</th>
                         <th class="">Action</th>
                     </tr>
                 </thead>
                 <tbody class="table-row-group font-semibold">
-                    @foreach ($orders as $order)
+                    @foreach ($reservations as $index => $order)
                     <tr class="border-b border-b-borborder-borderPrimary">
-                        <td class="py-6 pl-8">{{ ($orders->currentPage()-1) * $orders->perPage() + $loop->index + 1 }}</td>
-                        <td>{{ $order->transaction_id }}</td>
-                        <td>{{ ucwords($order->product->name) }}</td>
-                        <td>{{ ucwords($order->product->category->name)  }}</td>
-                        <td>Rp{{ number_format($order->product->price, 0, ',', '.') }}</td>
+                        <td class="py-6 pl-8">{{ $index+1 }}</td>
+                        <td>{{ $order->nama }}</td>
+                        <td>{{ ucwords($order->table) }}</td>
+                        <td>{{ ucwords($order->phone)  }}</td>
+                        <td>{{ $order->date }}</td>
                         <td>
                             <div class="data-complete:bg-success/20 rounded data-complete:text-success px-4 py-[4px] inline-block data-processing:bg-purple/20 data-processing:text-purple"
-                                data-status="{{ $order->payment_status === 'processing' ? 'processing' : 'complete' }}">
-                                {{ Str::ucfirst($order->payment_status) }}
+                                data-status="{{ $order->status === 'processing' ? 'processing' : 'complete' }}">
+                                {{ Str::ucfirst($order->status) }}
                             </div>
                             
                         </td>
@@ -49,8 +49,8 @@
                 </tbody>
             </table>
             </div>
-            <div class="mt-5">
-                {{ $orders->links() }}
-            </div>
+            {{-- <div class="mt-5">
+                {{ $reservations->links() }}
+            </div> --}}
     </main>
 @endsection
